@@ -1,0 +1,6 @@
+pandas==1.2.3
+httpx==0.17.1
+pyarrow==3.0.0
+aiofile==3.5.0
+pygeohash==1.2.0
+python-snappy==0.6.0
