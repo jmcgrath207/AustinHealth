@@ -4,7 +4,7 @@ import operator
 
 class Record:
 
-    def __init__(self, buffer_list):
+    def __init__(self, buffer_list: list):
         self._buffer_list = buffer_list
         self._payload = False
         self._checkpoint_offset = False

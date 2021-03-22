@@ -11,7 +11,7 @@ async def fetch() -> None:
 
     :return: None
     """
-    limit = 1000
+    limit: int = app.api_pagination_limit
     offset: int = app.current_offset
     # Limit concurrency to two coroutines at a time.
     api_request_lock = asyncio.Semaphore(value=2)

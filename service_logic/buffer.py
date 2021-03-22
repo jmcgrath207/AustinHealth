@@ -9,7 +9,7 @@ class Buffer:
 
     def __init__(self, mb_max_size=1):
         """
-        Creates a buffer object that store data
+        Creates a buffer object that stores data
 
         :param mb_max_size: Max size in Megabytes
         """
@@ -61,7 +61,6 @@ class Buffer:
 
             self.buffer.append(item)
             self.buffer_size += size
-            self.buffer_overflow = []
         else:
             if self.buffer_overflow:
                 self.buffer_overflow.append(item)
@@ -76,8 +75,9 @@ class Buffer:
 
         :return: list
         """
-        buffer = self.buffer
-        self.buffer = self.buffer_overflow
+        buffer: list = self.buffer
+        self.buffer: list = self.buffer_overflow
+        self.buffer_overflow = []
         self.buffer_size = 0
         for x in self.buffer:
             self.buffer_size += len(str(x).encode("utf-8"))
@@ -94,7 +94,7 @@ class Buffer:
         """
         from service_logic import app
 
-        json_payload = response.json()
+        json_payload: dict = response.json()
         self.add_item({'offset': offset, 'payload': json_payload})
         if self.is_full:
             record = Record(buffer_list=self.flush())
@@ -106,7 +106,7 @@ class Buffer:
                 if app.buffer.is_empty:
                     break
                 else:
-                    record = Record(buffer_list=app.buffer.flush())
+                    record = Record(buffer_list=self.flush())
                     await app.data_queue.put(record)
             return True
         else:

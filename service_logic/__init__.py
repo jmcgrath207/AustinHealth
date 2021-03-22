@@ -53,7 +53,7 @@ class App(SimpleNamespace):
 app = App()
 
 
-async def set_current_offset(offset: int):
+async def set_current_offset(offset: int) -> None:
     """
     Sets last successful offset. This allow the application to checkpoint
     or restore state based on it's last successful parquet dump.
@@ -85,9 +85,9 @@ async def get_current_offset() -> int:
 
 async def init() -> None:
     """
-    Set Props for the app object
+    Set properties for the app object
 
-    :return:
+    :return: None
     """
     app.data_queue = Queue()
     app.environment = os.environ.get('ENVIRONMENT', 'LOCAL')
@@ -107,5 +107,10 @@ async def init() -> None:
     app.buffer = Buffer(mb_max_size=1)
 
 
-async def close_init():
+async def close_init() -> None:
+    """
+    Used to close out
+    :return:
+    """
+
     pass

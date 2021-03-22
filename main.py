@@ -1,15 +1,22 @@
 import asyncio
 
 from service_logic import init, close_init
-from service_logic.dump_parquet import dump_parquet
+from service_logic.normalization import normalization
 from service_logic.restaurant_inspections import fetch
 
 
-async def main():
+async def main() -> None:
+    """
+    Gather all coroutines, submit them to the event
+    loop then waits for all to complete. If one
+    raises a exception, all coroutines are cancelled.
+
+    :return: None
+    """
     try:
         await init()
-        asyncio.create_task(dump_parquet())
-        await fetch()
+        coroutine_list = [normalization(), fetch()]
+        await asyncio.gather(*coroutine_list)
     except Exception as e:
         await close_init()
         raise e
